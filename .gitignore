@@ -22,4 +22,6 @@ yarn-error.log*
 
 /public/show
 
+/src/Components/**/*.css
+
 .vscode

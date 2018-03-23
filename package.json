@@ -4,6 +4,9 @@
   "private": true,
   "dependencies": {
     "monaco-editor": "^0.11.1",
+    "node-sass-chokidar": "^1.2.0",
+    "normalize.css": "^8.0.0",
+    "npm-run-all": "^4.1.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-monaco-editor": "^0.14.1",
@@ -11,8 +14,12 @@
   },
   "scripts": {
     "postinstall": "copyfiles -a -u 3 node_modules/monaco-editor/min/vs/**/* public/show",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start-js": "react-scripts start",
+    "watch-css": "npm run build-css && node-sass-chokidar src/Components -o src/Components --watch --recursive",
+    "start": "npm-run-all -p watch-css start-js",
+    "build-js": "react-scripts build",
+    "build-css": "node-sass-chokidar src/sass src/stylesheets -o src/stylesheets",
+    "build": "npm-run-all build-css build-js",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
