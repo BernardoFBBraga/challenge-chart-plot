@@ -1,7 +1,6 @@
 .App {
   display:flex;
   flex-direction: column;
-  justify-content: space-between;
   height:100vh;
 }
 
@@ -15,9 +14,14 @@
   height: 64px;
   padding: auto 20px;
   color: rgb(65,70,81);
+  margin-bottom:10px;
+}
+.App-chart-area{
+  padding:20px;
 }
 
 .App-footer {
+  margin-top:auto;
   background-color: rgb(221,222,225);
   height: 60px;
   display: flex;
