@@ -3,8 +3,8 @@ import MonacoEditor from 'react-monaco-editor';
 
 export default class Editor extends React.Component {
 	editorDidMount = (editor, monaco) => {
-    this.props.setEditor(editor)
-  }
+		this.props.setEditor(editor)
+	}
 	render() {
 		const requireConfig = {
 			url: '/require.min.js',
@@ -15,11 +15,12 @@ export default class Editor extends React.Component {
 		return (
 			<div>
 				<MonacoEditor
-					defaultValue ={this.props.defaultValue }
+					defaultValue={this.props.defaultValue}
 					ref={this.setRef}
 					width="100%"
 					height="300"
 					language="json"
+					theme="vs-dark"
 					requireConfig={requireConfig}
 					editorDidMount={this.editorDidMount}
 				/>
