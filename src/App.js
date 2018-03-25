@@ -2,8 +2,14 @@ import React, { Component } from 'react';
 import './App.css';
 import Editor from './Components/Editor'
 import Button from './Components/Button'
+import ResizeHandle from './Components/ResizeHandle'
 import Chart from 'chart.js'
 import { LineChart } from 'react-chartkick'
+
+const chartMinHeight = 200;
+const editorMinHeight = 50;
+const headerHeight = 64;
+const footerHeight = 60;
 
 const testData = [
 	{ type: 'start', timestamp: 1519780251293, select: ['min_response_time', 'max_response_time'], group: ['x', 'browser'] },
@@ -28,7 +34,28 @@ class App extends Component {
 	constructor(props) {
 		super(props)
 		this.state = this.generateChartState(JSON.stringify(testData))
+
+		this.state.resizeHandlePosition = 300
+		this.state.contentHeight = window.innerHeight - footerHeight - headerHeight;
+		this.state.contentWidth = window.innerWidth
 	}
+
+	componentDidMount() {
+		window.addEventListener("resize", this.updateContentSize)
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener("resize", this.updateContentSize)
+	}
+
+	updateContentSize = () => {
+		this.setState({
+			contentHeight: window.innerHeight - footerHeight - headerHeight,
+			contentWidth: window.innerWidth
+		})
+	}
+
+	moveResizeHandle = newyYPos => this.setState({ resizeHandlePosition: newyYPos })
 
 	generateChartState = (JSONcode) => {
 		let code = JSON.parse(JSONcode)
@@ -77,28 +104,39 @@ class App extends Component {
 	generateChart = () => {
 		this.setState(this.generateChartState(this.editor.getModel().getValue()))
 	}
+
 	setEditor = (editor) => {
 		this.editor = editor
 	}
+
 	render() {
 		return (
 			<div className="App">
 
-				<div className="App-header">
+				<div className="App-header" style={{ height: headerHeight }}>
 					bernardofbbraga's Challenge
         </div>
 				<div className="App-content">
 					<Editor
 						defaultValue={this.state.code}
 						setEditor={this.setEditor}
+						height={this.state.resizeHandlePosition}
+						width={this.state.contentWidth}
 					/>
-					<div className="App-chart-area">
+					<ResizeHandle
+						onMove={this.moveResizeHandle}
+						min={editorMinHeight}
+						max={this.state.contentHeight - chartMinHeight}
+						pos={this.state.resizeHandlePosition}
+					/>
+					<div className="App-chart-area" style={{ height: this.state.contentHeight - this.state.resizeHandlePosition }}>
 						{this.state.data ?
 							<LineChart
 								data={this.state.data}
 								legend={"right"}
 								xtitle="Timepoint"
 								ytitle="Response Time"
+								height={this.state.contentHeight - this.state.resizeHandlePosition}
 							/>
 							:
 							<div>
@@ -108,7 +146,7 @@ class App extends Component {
 					</div>
 
 				</div>
-				<div className="App-footer">
+				<div className="App-footer" style={{ height: footerHeight }}>
 					<Button
 						text="GENERATE CHART"
 						onClick={this.generateChart}

@@ -1,0 +1,9 @@
+.ResizeHandle{
+	position: absolute;
+	left:50%;
+	transform: translateY(-50%);
+	background-image: url("/drag.png");
+	height:10px;
+	width:24px;
+	z-index: 1;
+}
