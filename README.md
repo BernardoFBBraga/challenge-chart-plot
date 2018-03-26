@@ -5,6 +5,7 @@ To run the project, clone the repository and install the dependencies
 
 ```
 git clone https://github.com/BernardoFBBraga/challenge-chart-plot.git
+cd challenge-chart-plot/
 npm install
 ```
 
