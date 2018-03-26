@@ -13,6 +13,7 @@ class App extends Component {
 		this.state = {
 			contentHeight: window.innerHeight - footerHeight - headerHeight,
 			contentWidth: window.innerWidth,
+			errorMessage:null,
 		}
 	}
 
@@ -39,6 +40,10 @@ class App extends Component {
 		this.editor.generateChart()
 	}
 
+	setErrorMessage = (msg) => {
+		this.setState({errorMessage:msg})
+	}
+
 	render() {
 		return (
 			<div className="App">
@@ -51,6 +56,7 @@ class App extends Component {
 						ref={this.setEditor}
 						height={this.state.contentHeight}
 						width={this.state.contentWidth}
+						setErrorMessage={this.setErrorMessage}
 					/>
 				</div>
 				<div className="App-footer" style={{ height: footerHeight }}>
@@ -58,6 +64,9 @@ class App extends Component {
 						text="GENERATE CHART"
 						onClick={this.generateChart}
 					/>
+					<div className="App-error-message">
+						{this.state.errorMessage}
+					</div>
 				</div>
 			</div>
 		);

@@ -1,7 +1,7 @@
 import './ResizeHandle.css'
 import React from 'react';
 
-export default class extends React.Component {
+export default class ResizeHandle extends React.Component {
 	startDrag = () => {
 		window.addEventListener("mousemove", this.drag)
 		window.addEventListener("mouseup", this.stopDrag)
