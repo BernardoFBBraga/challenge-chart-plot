@@ -9,11 +9,6 @@ function prettyPrintName(str){
 const groupNameReducer = (name,groupName) => name += (prettyPrintName(groupName) + " ")
 const generateLineName = (element,groupNames,selectName)=> groupNames.map(g=>element[g]).reduce(groupNameReducer,"")+prettyPrintName(selectName)
 
-function formattedXAxisLabel(timestamp){
-	let date = new Date(timestamp)
-	return `${String(date.getMinutes()).padStart(2,"0")}:${String(date.getSeconds()).padStart(2,"0")}`
-}
-
 const generateChartState = (JSONcode) => {
 	let code
 	try{
@@ -63,8 +58,7 @@ const generateChartState = (JSONcode) => {
 							chartDataArr.push(dataMap[lineName])
 						}
 						//add new data point to the existing object
-
-						dataMap[lineName].data[formattedXAxisLabel(code[i].timestamp - begin)] = code[i][s]
+						dataMap[lineName].data[code[i].timestamp - begin] = code[i][s]
 					})
 				}
 				break;
@@ -78,8 +72,18 @@ const generateChartState = (JSONcode) => {
 
 	if(chartDataArr.length===0)throw Error("No valid data events were found after the last start event")
 
-	let dataLength = chartDataArr[0].data.length
-	if(chartDataArr.find(event=>event.data.length!==dataLength))throw Error("To generate the graph, all lines must have the same amount of data points")
+	let dataPoints = Object.keys(chartDataArr[0].data)
+	dataPoints.sort()
+	//search for data that does not have the same number of data points or have different data points on the X axis
+	if(chartDataArr.find(event=>{
+		let eventKeys = Object.keys(event.data)
+		if(eventKeys.length !== dataPoints.length) return true
+		eventKeys.sort()
+		for(let i=0; i<eventKeys.length; i++){
+			if(eventKeys[i]!==dataPoints[i])return true
+		}
+		return false
+	}))throw Error("To generate the graph, all lines must have the same data points on the X axis")
 
 	return {
 		code: JSONcode,
