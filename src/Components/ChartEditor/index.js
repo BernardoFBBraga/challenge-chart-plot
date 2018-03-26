@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Editor from '../Editor'
 import ResizeHandle from '../ResizeHandle'
 import IntelieChart from '../IntelieChart'
-import {generateChartState} from '../../lib/codeParser'
+import { generateChartState } from '../../lib/codeParser'
 
 const chartMinHeight = 200;
 const editorMinHeight = 50;
@@ -17,17 +17,17 @@ class ChartEditor extends Component {
 			begin: 0,
 			end: 0,
 			resizeHandlePosition: 300,
-			errorMessage:null,
+			errorMessage: null,
 		}
 	}
 
 	moveResizeHandle = newyYPos => this.setState({ resizeHandlePosition: newyYPos })
 
 	generateChart = () => {
-		try{
+		try {
 			this.setState(generateChartState(this.editor.getModel().getValue()))
 			this.props.setErrorMessage(null)
-		}catch(e){
+		} catch (e) {
 			this.props.setErrorMessage(e.message)
 		}
 	}
@@ -53,6 +53,7 @@ class ChartEditor extends Component {
 				/>
 				<IntelieChart
 					height={this.props.height - this.state.resizeHandlePosition}
+					width={this.props.width}
 					data={this.state.data}
 				/>
 			</React.Fragment>
