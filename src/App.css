@@ -17,11 +17,6 @@
   position:relative;
 }
 
-.App-chart-area{
-  position: relative;
-  box-sizing: border-box;
-}
-
 .App-footer {
   margin-top:auto;
   background-color: rgb(221,222,225);

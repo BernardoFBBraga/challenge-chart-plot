@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import Editor from '../Editor'
 import ResizeHandle from '../ResizeHandle'
-import LineChartEmptyState from '../LineChartEmptyState'
-import Chart from 'chart.js' // eslint-disable-line no-unused-vars
-import { LineChart } from 'react-chartkick'
+import IntelieChart from '../IntelieChart'
 import {generateChartState} from '../../lib/codeParser'
 
 const chartMinHeight = 200;
@@ -53,20 +51,10 @@ class ChartEditor extends Component {
 					max={this.props.height - chartMinHeight}
 					pos={this.state.resizeHandlePosition}
 				/>
-				<div className="App-chart-area" style={{ height: this.props.height - this.state.resizeHandlePosition }}>
-					{this.state.data.length > 0 ?
-						<LineChart
-							data={this.state.data}
-							legend={"right"}
-							xtitle="Timepoint"
-							ytitle="Response Time"
-							height={this.props.height - this.state.resizeHandlePosition}
-							curve={false}
-						/>
-						:
-						<LineChartEmptyState/>
-					}
-				</div>
+				<IntelieChart
+					height={this.props.height - this.state.resizeHandlePosition}
+					data={this.state.data}
+				/>
 			</React.Fragment>
 		);
 	}
