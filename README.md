@@ -37,8 +37,29 @@ For this challenge I've used a number of libraries:
 
 * create-react-app: The project was bootstrapped with create-react-app. More information can be found in [create-react-app-documentation.md](create-react-app-documentation.md)
 
+## Important note
 
-
+As discussed via e-mail, the data format used is JSON. This is a bit different than the format defined in the next section. Here is a sample of valid data to test
+```
+[
+	{"type":"start","timestamp":1519780251293,"select":["min_response_time","max_response_time"],"group":["x","browser"]},
+	{"type":"span","timestamp":1519780251293,"begin":1519780251293,"end":1519780260201},
+	{"type":"data","timestamp":1519780251000,"x":"linux","browser":"chrome","min_response_time":0.1,"max_response_time":1.3},
+	{"type":"data","timestamp":1519780260201,"x":"linux","browser":"chrome","min_response_time":0.5,"max_response_time":1.5},
+	{"type":"stop","timestamp":1519780251293},
+	{"type":"start","timestamp":1519780251000,"select":["min_response_time","max_response_time"],"group":["os","browser"]},
+	{"type":"span","timestamp":1519780251000,"begin":1519780251000,"end":1519780260201},
+	{"type":"data","timestamp":1519780251000,"os":"linux","browser":"chrome","min_response_time":0.1,"max_response_time":1.3},
+	{"type":"data","timestamp":1519780260201,"os":"linux","browser":"chrome","min_response_time":0.5,"max_response_time":1.5},
+	{"type":"data","timestamp":1519780251000,"os":"linux","browser":"opera","min_response_time":0.2,"max_response_time":1.7},
+	{"type":"data","timestamp":1519780260201,"os":"linux","browser":"opera","min_response_time":0.7,"max_response_time":1.8},
+	{"type":"data","timestamp":1519780251000,"os":"windows","browser":"opera","min_response_time":0.9,"max_response_time":1.3},
+	{"type":"data","timestamp":1519780260201,"os":"windows","browser":"opera","min_response_time":0.8,"max_response_time":1.2},
+	{"type":"data","timestamp":1519780251000,"os":"windows","browser":"chrome","min_response_time":0.3,"max_response_time":1},
+	{"type":"data","timestamp":1519780260201,"os":"windows","browser":"chrome","min_response_time":0.2,"max_response_time":1.9},
+	{"type":"stop","timestamp":1519780260201}
+]
+```
 # Challenge definition
 
 In this challenge, you will implement a web application that plots a line chart based on some manually input data.
