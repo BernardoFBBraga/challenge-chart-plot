@@ -9,21 +9,13 @@ cd challenge-chart-plot/
 npm install
 ```
 
-## Running and testing
+## Running
 
 To run the project use the start script
 
 ```
 npm start
 ```
-
-To run the tests use the test script
-```
-npm run test
-```
-Testing covers mostly problems in the data that is inputed in the text editor. Data could be incomplete or invalid and the tests cover a range of possible problems.
-
-Should these problems occur while the user is trying to generate the chart, an error message is shown to him/her, next to the "generate chart" button.
 
 ## Building
 
@@ -39,6 +31,30 @@ serve -s build
 ```
 The production build will be hosted at http://localhost:5000
 
+## Testing
+
+To run the automated tests use the test script
+```
+npm run test
+```
+Testing covers mostly problems in the data that is inputed in the text editor. Data could be incomplete or invalid and the tests cover a range of possible problems.
+
+Should these problems occur while the user is trying to generate the chart, an error message is shown to him/her, next to the "generate chart" button.
+
+## Testing performance
+
+I've prepared a node script to generate random datasets for testing
+
+```
+npm run generateTest
+```
+
+a file will be generated at the folder root, which you can use to copy and paste into the editor
+while the script defaults to 100 data points, you can pass a parameter to choose another number. For example, to generate 1000 datapoints for each line, run
+
+```
+npm run generateTest 1000
+```
 ## Libraries
 
 For this challenge I've used a number of libraries:
