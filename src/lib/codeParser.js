@@ -22,6 +22,8 @@ const generateChartState = (JSONcode) => {
 	//we start reading the data backwards to find the last start event
 	let i; //we will use the same index in the two loops below. We will first find the start event backwards, then keep moving forward to consumer the rest of the data
 	for (i = code.length - 1; i >= 0; i--) {
+		if(!code[i]) throw Error("Invalid element: " + JSON.stringify(code[i]) )
+		if(!code[i].type)	throw Error("Invalid event detected: " + JSON.stringify(code[i]) )
 		if (code[i].type === 'start') {
 			select = code[i].select
 			group = code[i].group
@@ -32,6 +34,7 @@ const generateChartState = (JSONcode) => {
 	}
 	if (i < 0) throw Error("There is no start event")
 	for (; i < code.length; i++) {
+		if(!code[i]) throw Error("Invalid element: " + JSON.stringify(code[i]) )
 		if(!code[i].type)	throw Error("Invalid event detected: " + JSON.stringify(code[i]) )
 		switch (code[i].type) {
 			case 'start':
