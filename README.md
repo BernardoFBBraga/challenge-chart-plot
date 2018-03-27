@@ -25,6 +25,19 @@ Testing covers mostly problems in the data that is inputed in the text editor. D
 
 Should these problems occur while the user is trying to generate the chart, an error message is shown to him/her, next to the "generate chart" button.
 
+## Building
+
+Running the build script generates an optimized version of the app. You can build with the following command
+```
+npm run build
+```
+
+If you want to quickly use this production build to test, use "serve"
+```
+npm install server
+serve -s build
+```
+The production build will be hosted at http://localhost:5000
 
 ## Libraries
 
